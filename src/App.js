@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import { Switch, Route, Redirect, Link } from './Router'
 
 class App extends Component {
   render() {
@@ -10,12 +11,34 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Route path="/">
+          <p className="App-intro">
+            To get started, edit <code>src/App.js</code> and save to reload.
+          </p>
+        </Route>
+        <Switch>
+          <Route path="/">
+            <Fragment>
+              <div>home</div>
+              <Link to="/2">To 2</Link>
+            </Fragment>
+          </Route>
+          <Route path="/2">
+            <Fragment>
+              <Link to="/3">To 3</Link>
+            </Fragment>
+          </Route>
+          <Route path="/404">
+            <Fragment>
+              <div>404 Not found</div>
+              <Link to="/">Go back to home</Link>
+            </Fragment>
+          </Route>
+          <Redirect to="/404" />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default App
