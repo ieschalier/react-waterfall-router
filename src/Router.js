@@ -3,6 +3,14 @@ import { createBrowserHistory } from 'history'
 
 const history = createBrowserHistory()
 
+export const waterfallMiddelware = (store, self) => {
+  console.warn(store, self)
+  return (action, args) => {
+    console.warn(self)
+    console.warn(action, args)
+  }
+}
+
 export const push = path => {
   history.push(path)
 }

@@ -3,6 +3,8 @@ import logo from './logo.svg'
 import './App.css'
 import { Switch, Route, Redirect, Link } from './Router'
 
+import { Consumer } from './store'
+
 class App extends Component {
   render() {
     return (
@@ -12,6 +14,18 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <Route path="/">
+          <Consumer mapStateToProps={state => ({ counter: state.counter })}>
+            {({ counter, actions }) => {
+              console.log(actions)
+              return (
+                <div>
+                  <button onClick={actions.decrement}>-</button>
+                  <p>{counter}</p>
+                  <button onClick={actions.increment}>+</button>
+                </div>
+              )
+            }}
+          </Consumer>
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
@@ -37,7 +51,7 @@ class App extends Component {
           <Redirect to="/404" />
         </Switch>
       </div>
-    );
+    )
   }
 }
 
