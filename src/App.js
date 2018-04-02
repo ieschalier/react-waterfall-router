@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import { Switch, Route, Redirect, Link } from './Router'
@@ -14,39 +14,41 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <Route path="/">
-          <Consumer mapStateToProps={state => ({ counter: state.counter })}>
-            {({ counter, actions }) => {
-              console.log(actions)
-              return (
-                <div>
-                  <button onClick={actions.decrement}>-</button>
-                  <p>{counter}</p>
-                  <button onClick={actions.increment}>+</button>
-                </div>
-              )
-            }}
-          </Consumer>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
+          <div>
+            <Consumer mapStateToProps={state => ({ counter: state.counter })}>
+              {({ counter, actions }) => {
+                console.log(actions)
+                return (
+                  <div>
+                    <button onClick={actions.decrement}>-</button>
+                    <p>{counter}</p>
+                    <button onClick={actions.increment}>+</button>
+                  </div>
+                )
+              }}
+            </Consumer>
+            <p className="App-intro">
+              To get started, edit <code>src/App.js</code> and save to reload.
+            </p>
+          </div>
         </Route>
         <Switch>
           <Route path="/">
-            <Fragment>
+            <div>
               <div>home</div>
               <Link to="/2">To 2</Link>
-            </Fragment>
+            </div>
           </Route>
           <Route path="/2">
-            <Fragment>
+            <div>
               <Link to="/3">To 3</Link>
-            </Fragment>
+            </div>
           </Route>
           <Route path="/404">
-            <Fragment>
+            <div>
               <div>404 Not found</div>
               <Link to="/">Go back to home</Link>
-            </Fragment>
+            </div>
           </Route>
           <Redirect to="/404" />
         </Switch>

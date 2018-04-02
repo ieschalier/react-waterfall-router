@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserHistory } from 'history'
 
-const history = createBrowserHistory()
+export const history = createBrowserHistory()
 
 export const waterfallMiddelware = (store, self) => {
   console.warn(store, self)
@@ -66,7 +66,8 @@ export class Route extends React.Component {
   render() {
     const { path, children } = this.props
     const { pathname } = this.state
-    return path === pathname && children
+
+    return path === pathname && React.cloneElement(children, { pathname })
   }
 }
 
