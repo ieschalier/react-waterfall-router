@@ -3,6 +3,14 @@ import { createBrowserHistory } from 'history'
 
 const history = createBrowserHistory()
 
+export const push = path => {
+  history.push(path)
+}
+
+export const pop = () => {
+  history.goBack()
+}
+
 export class Switch extends React.Component {
   state = {
     pathname: history.location.pathname,
@@ -20,15 +28,13 @@ export class Switch extends React.Component {
 
   render() {
     const { pathname } = this.state
-    const { children } = this.props
+    const { children } = this.props
 
-    const Component = children.find(C => (
-      C.type === Route && C.props.path === pathname
-    ))
+    const Component = children.find(
+      C => C.type === Route && C.props.path === pathname,
+    )
 
-    const RedirectComponent = children.find(C => (
-      C.type === Redirect
-    ))
+    const RedirectComponent = children.find(C => C.type === Redirect)
 
     return Component || RedirectComponent || null
   }
@@ -58,7 +64,7 @@ export class Route extends React.Component {
 
 export class Redirect extends React.Component {
   componentDidMount = () => {
-    history.push(this.props.to)
+    push(this.props.to)
   }
 
   render() {
@@ -69,9 +75,9 @@ export class Redirect extends React.Component {
 export const Link = ({ to, children }) => (
   <a
     href={to}
-    onClick={(e) => {
+    onClick={e => {
       e.preventDefault()
-      history.push(to)
+      push(to)
     }}
   >
     {children}
